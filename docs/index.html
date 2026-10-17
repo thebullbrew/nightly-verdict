@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Nightly Verdict — Short-Term vs Long-Term Rental, Settled in Numbers</title>
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/icon-32.png">
+<style>
+:root{--bg:#10140F;--surface:#1A211C;--panel:#232B24;--text:#F5F2E8;--muted:#C9C2AC;--accent:#B49A5B;--accent2:#1F3522;--line:#B49A5B66;--good:#9FD6A4;--bad:#E59A8A}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Georgia,'Times New Roman',serif;line-height:1.5}
+.hero{padding:48px 20px 34px;text-align:center;border-bottom:1px solid var(--accent);background:linear-gradient(180deg,#1F3522,#10140F)}
+.eyebrow{letter-spacing:.35em;text-transform:uppercase;color:var(--accent);font-size:.72rem}
+h1{font-size:clamp(2.2rem,6vw,3.8rem);margin:.2em 0 .1em;color:var(--text);font-weight:700}
+h1 em{color:var(--accent);font-style:normal}
+.sub{color:var(--muted);max-width:700px;margin:0 auto;font-style:italic}
+.wrap{max-width:1060px;margin:0 auto;padding:22px 16px 60px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);padding:20px;margin-bottom:18px}
+h2{color:var(--accent);font-size:1.2rem;margin:0 0 12px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--line);padding-bottom:8px}
+label{display:block;font-size:.85rem;color:var(--muted);margin:10px 0 4px}
+input,select{width:100%;padding:10px;background:var(--bg);border:1px solid var(--line);color:var(--text);font-family:inherit;font-size:1rem}
+button{background:var(--accent2);color:var(--text);border:1px solid var(--accent);padding:12px 18px;font-family:inherit;font-weight:bold;cursor:pointer;font-size:1rem}
+button.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.hero-num{font-size:clamp(1.9rem,5vw,3rem);color:var(--accent);line-height:1.05;font-variant-numeric:tabular-nums}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}@media(max-width:760px){.kpi{grid-template-columns:1fr}}
+.kpi div{background:var(--panel);border:1px solid var(--line);padding:14px}.kpi b{display:block;color:var(--accent);font-size:1.35rem;font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;font-size:.95rem;font-variant-numeric:tabular-nums}th,td{padding:8px;border-bottom:1px solid var(--line);text-align:right}th:first-child,td:first-child{text-align:left}th{color:var(--accent)}
+tr.win td{color:var(--accent);font-weight:bold}
+.verdict{font-size:1.45rem;color:var(--accent)}
+.barwrap{display:grid;grid-template-columns:1fr;gap:8px;margin:12px 0}
+.bar{height:26px;background:var(--bg);border:1px solid var(--line);position:relative}
+.bar i{position:absolute;inset:0;background:linear-gradient(90deg,var(--accent2),var(--accent))}
+.bar span{position:relative;z-index:1;padding:2px 8px;font-size:.85rem;color:var(--text)}
+.small{font-size:.85rem;color:var(--muted)} .good{color:var(--good)} .bad{color:var(--bad)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+textarea{width:100%;min-height:120px;background:var(--bg);color:var(--text);border:1px solid var(--line);padding:10px;font-family:inherit}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:20px;border-top:1px solid var(--line)}
+.warn{border-left:4px solid var(--bad);padding:8px 12px;background:#2a1712;color:var(--text)}
+</style></head><body>
+<header class="hero"><div class="eyebrow">◆ Midnight Ledger ◆</div><h1>The Nightly <em>Verdict</em></h1>
+<p class="sub">Everyone says short-term rentals print money. Some do. Most just print work. Put your real numbers in — nightly rate, occupancy, cleaning, platform cuts, the lot — and see whether the nightly game actually beats one good long-term tenant, and at what occupancy it stops being a fantasy.</p></header>
+<main class="wrap">
+<div class="grid">
+<section class="card"><h2>The Property — Shared Ground</h2>
+<label>Scenario name</label><input id="name" type="text" value="The duplex on Elm">
+<label>Shared fixed cost per month — mortgage, tax, base insurance ($)</label><input id="common" type="number" value="1850">
+<label>What the same place rents for long-term ($/mo)</label><input id="ltrRent" type="number" value="2100">
+<p class="small">Shared costs hit both strategies equally, so they do not pick the winner — they only decide whether either one cash-flows. The verdict is won and lost in the two columns below.</p>
+<p class="warn small"><b>Before the math:</b> many HOAs, condos, and towns ban or license short-term rentals outright. If the rules say no, the nightly number is fiction no matter how pretty it looks. Check first. No-HOA houses dodge this entire problem.</p>
+</section>
+<section class="card"><h2>Long-Term — The Quiet Tenant</h2>
+<label>Vacancy allowance (%)</label><input id="ltrVac" type="number" value="5" step="0.5">
+<label>Management (% of collected rent — 0 if you self-manage)</label><input id="ltrMgmt" type="number" value="0" step="0.5">
+<label>Maintenance &amp; reserves (% of rent)</label><input id="ltrMaint" type="number" value="5" step="0.5">
+<p class="small">One lease. One tenant. Rent lands once a month and you mostly leave the place alone. Boring is not an insult in this business — boring is a feature.</p>
+</section>
+</div>
+<div class="grid">
+<section class="card"><h2>Short-Term — The Nightly Game</h2>
+<label>Average nightly rate ($)</label><input id="nightly" type="number" value="165">
+<label>Occupancy (% of nights booked)</label><input id="occ" type="number" value="55" step="1">
+<label>Average stay (nights)</label><input id="stay" type="number" value="3" step="0.5">
+<label>Cleaning fee you charge the guest ($/stay)</label><input id="cleanFee" type="number" value="90">
+<label>What the cleaner actually charges you ($/stay)</label><input id="cleanCost" type="number" value="85">
+<label>Platform cut (% of gross — host fees, channel fees)</label><input id="platform" type="number" value="3" step="0.5">
+<label>Management (% of gross — 0 if you self-manage, 20+ if you don't)</label><input id="strMgmt" type="number" value="0" step="0.5">
+</section>
+<section class="card"><h2>Short-Term — The Costs People Forget</h2>
+<label>Utilities &amp; internet the guest runs up ($/mo)</label><input id="utilities" type="number" value="240">
+<label>Supplies, linens, coffee, breakage ($/mo)</label><input id="supplies" type="number" value="90">
+<label>Extra STR insurance over a landlord policy ($/mo)</label><input id="insUplift" type="number" value="75">
+<label>Furnishing reserve — furniture dies fast ($/mo)</label><input id="furnish" type="number" value="150">
+<div class="row"><button onclick="calc()">Render the Verdict</button><button class="ghost" onclick="saveScenario()">Save Scenario</button></div>
+<p class="small">Furnishings are not a one-time cost. Sofas, mattresses, and TVs in a nightly rental age in dog years. If you are not reserving for them, your profit is borrowed.</p>
+</section>
+</div>
+
+<section class="card"><h2>The Verdict</h2><div id="verdict" class="verdict">—</div><p id="verdictSub"></p>
+<div class="kpi">
+<div><span class="small">Short-term net / mo (after shared costs)</span><b id="kSTR">—</b><span class="small" id="kSTRgross"></span></div>
+<div><span class="small">Long-term net / mo (after shared costs)</span><b id="kLTR">—</b><span class="small" id="kLTRgross"></span></div>
+<div><span class="small">The gap</span><b id="kGap">—</b><span class="small" id="kGapYr"></span></div>
+</div>
+<div class="barwrap">
+<div class="bar"><i id="barSTR" style="width:0%"></i><span id="barSTRt">Short-term</span></div>
+<div class="bar"><i id="barLTR" style="width:0%"></i><span id="barLTRt">Long-term</span></div>
+</div>
+<p class="small" id="effortNote"></p>
+</section>
+
+<section class="card"><h2>Where the Nightly Game Breaks Even</h2>
+<div class="kpi">
+<div><span class="small">Breakeven occupancy</span><b id="kBEocc">—</b><span class="small">Below this, the quiet tenant wins</span></div>
+<div><span class="small">Breakeven nightly rate (at your occupancy)</span><b id="kBEnight">—</b><span class="small">Below this rate, long-term wins</span></div>
+<div><span class="small">Turnovers you are signing up for</span><b id="kTurns">—</b><span class="small">check-ins, cleanings, messages, reviews</span></div>
+</div>
+<p class="small">Breakeven here means the short-term net merely ties the long-term net — before paying you a cent for the extra work. A tie goes to the tenant. Demand a real premium, not a coin flip, before you become a hotel.</p>
+</section>
+
+<section class="card"><h2>Occupancy Sensitivity — Same Rate, Different Year</h2><div style="overflow-x:auto"><table><thead><tr><th>Occupancy</th><th>STR gross / mo</th><th>STR net / mo</th><th>Gap vs long-term</th><th>Winner</th></tr></thead><tbody id="sens"></tbody></table></div>
+<p class="small">Occupancy is the number hosts lie about most. Screenshots show the best month. This table shows the whole year, including the dead weeks nobody posts about.</p></section>
+
+<section class="card"><h2>Saved Scenarios</h2><div id="saved"></div>
+<div class="row"><button class="ghost" onclick="copySummary()">Copy Summary</button></div><textarea id="summary" readonly placeholder="Your copyable summary appears here."></textarea></section>
+
+<section class="card"><h2>The Method</h2>
+<p>Compare strategies on net, never gross. The nightly side gets charged everything it truly consumes: platform and management cuts on the full gross (cleaning fees included), the cleaner's real invoice, utilities guests have no reason to spare, supplies, the insurance uplift, and a monthly furnishing reserve. The long-term side gets charged vacancy, management, and maintenance — honestly, but without inventing costs it does not have. Shared fixed costs are applied to both, so the gap you see is the strategy gap, not the house gap.</p>
+<p>Then the only two questions that matter: at what occupancy does nightly merely tie the tenant, and how many turnovers a month are you buying for the difference? If the premium does not pay for the work, take the tenant and go find another house. That is the whole game.</p>
+<p class="small">Educational calculator, not financial advice. STR rules, taxes (including occupancy / lodging taxes, which this tool does not model), and licensing vary by town — verify yours before you list anything.</p></section>
+</main><footer>The Nightly Verdict · A Bull Brew daily tool · No accounts, no data leaves your device.</footer>
+<script>
+const $=id=>document.getElementById(id);
+const fmt$=v=>"$"+Math.round(v).toLocaleString();
+const DAYS=365/12;
+function inputs(){return{name:$("name").value,common:+$("common").value||0,ltrRent:+$("ltrRent").value||0,ltrVac:+$("ltrVac").value/100,ltrMgmt:+$("ltrMgmt").value/100,ltrMaint:+$("ltrMaint").value/100,
+nightly:+$("nightly").value||0,occ:+$("occ").value/100,stay:Math.max(0.5,+$("stay").value||3),cleanFee:+$("cleanFee").value||0,cleanCost:+$("cleanCost").value||0,
+platform:+$("platform").value/100,strMgmt:+$("strMgmt").value/100,extras:(+$("utilities").value||0)+(+$("supplies").value||0)+(+$("insUplift").value||0)+(+$("furnish").value||0)}}
+function ltrNet(x){const collected=x.ltrRent*(1-x.ltrVac);return collected-collected*x.ltrMgmt-x.ltrRent*x.ltrMaint}
+function strNet(x,occ,nightly){const booked=DAYS*occ,stays=booked/x.stay;
+ const gross=nightly*booked+x.cleanFee*stays;
+ const net=gross-gross*x.platform-gross*x.strMgmt-x.cleanCost*stays-x.extras;
+ return{booked,stays,gross,net}}
+function perNight(x){return (x.nightly+x.cleanFee/x.stay)*(1-x.platform-x.strMgmt)-x.cleanCost/x.stay}
+let last=null;
+function calc(){
+ const x=inputs();const ln=ltrNet(x);const s=strNet(x,x.occ,x.nightly);
+ const strCash=s.net-x.common,ltrCash=ln-x.common,gap=s.net-ln;
+ $("kSTR").textContent=fmt$(strCash);$("kSTRgross").textContent="gross "+fmt$(s.gross)+"/mo · "+s.booked.toFixed(1)+" nights booked";
+ $("kLTR").textContent=fmt$(ltrCash);$("kLTRgross").textContent="one lease, "+fmt$(x.ltrRent)+"/mo headline rent";
+ $("kGap").textContent=(gap>=0?"+":"-")+fmt$(Math.abs(gap))+"/mo";
+ $("kGapYr").textContent=(gap>=0?"+":"-")+fmt$(Math.abs(gap*12))+" a year";
+ let v,sub;
+ if(gap>200){v="SHORT-TERM WINS — by "+fmt$(gap)+" a month.";sub="The nightly game pays a real premium over the quiet tenant at "+Math.round(x.occ*100)+"% occupancy. Just remember what you bought: "+s.stays.toFixed(1)+" turnovers a month, every month, in sickness and in health. If that premium ever shrinks below your breakeven below, get out."}
+ else if(gap<-200){v="LONG-TERM WINS — by "+fmt$(-gap)+" a month.";sub="At "+Math.round(x.occ*100)+"% occupancy and "+fmt$(x.nightly)+" a night, the nightly game pays you less than one good tenant — and hands you a hotel job for the privilege. Take the lease. Boring wins this one outright."}
+ else{v="DEAD HEAT — the gap is only "+fmt$(Math.abs(gap))+" a month.";sub="A tie goes to the tenant. Short-term carries the turnovers, the 11pm messages, the reviews, and the regulatory risk — and here it pays almost nothing extra for any of it. Long-term, unless occupancy or rate rises for real."}
+ $("verdict").textContent=v;$("verdictSub").textContent=sub;
+ const max=Math.max(1,s.net,ln);$("barSTR").style.width=Math.max(2,s.net/max*100)+"%";$("barLTR").style.width=Math.max(2,ln/max*100)+"%";
+ $("barSTRt").textContent="Short-term net (before shared costs): "+fmt$(s.net)+"/mo";
+ $("barLTRt").textContent="Long-term net (before shared costs): "+fmt$(ln)+"/mo";
+ $("effortNote").textContent="The work gap: long-term asks for roughly one lease signing a year. Short-term at these numbers asks for "+s.stays.toFixed(1)+" check-ins, "+s.stays.toFixed(1)+" cleanings, and a guest-message thread that never really closes — "+Math.round(s.stays*12)+" turnovers a year.";
+ const pn=perNight(x);let beOcc=pn>0?(ln+x.extras)/(pn*DAYS):Infinity;
+ $("kBEocc").textContent=isFinite(beOcc)?(beOcc>1?"Never — over 100%":""+Math.round(beOcc*100)+"%"):"Never";
+ let beNight="Never";
+ if(x.occ>0&&(1-x.platform-x.strMgmt)>0){const booked=DAYS*x.occ;const need=((ln+x.extras)/booked+x.cleanCost/x.stay)/(1-x.platform-x.strMgmt)-x.cleanFee/x.stay;beNight=need>0?fmt$(need):"$0 — already ahead"}
+ $("kBEnight").textContent=beNight;
+ $("kTurns").textContent=s.stays.toFixed(1)+" / mo";
+ let rows="";[0.25,0.35,0.45,0.55,0.65,0.75,0.85].forEach(o=>{const r=strNet(x,o,x.nightly);const g=r.net-ln;const cur=Math.abs(o-x.occ)<0.001;
+  rows+="<tr"+(cur?" class='win'":"")+"><td>"+Math.round(o*100)+"%"+(cur?" ← yours":"")+"</td><td>"+fmt$(r.gross)+"</td><td>"+fmt$(r.net)+"</td><td class='"+(g>=0?"good":"bad")+"'>"+(g>=0?"+":"-")+fmt$(Math.abs(g))+"</td><td>"+(g>200?"STR":g<-200?"LTR":"Toss-up")+"</td></tr>"});
+ $("sens").innerHTML=rows;
+ last={name:x.name,nightly:x.nightly,occ:x.occ,ltrRent:x.ltrRent,strNet:Math.round(s.net),ltrNet:Math.round(ln),gap:Math.round(gap),beOcc:isFinite(beOcc)?Math.round(beOcc*100):null,turns:+s.stays.toFixed(1)};
+ $("summary").value="THE NIGHTLY VERDICT — "+x.name+"\nSTR: "+fmt$(x.nightly)+"/night at "+Math.round(x.occ*100)+"% occupancy → net "+fmt$(s.net)+"/mo before shared costs ("+fmt$(strCash)+" after)\nLTR: "+fmt$(x.ltrRent)+"/mo → net "+fmt$(ln)+"/mo before shared costs ("+fmt$(ltrCash)+" after)\nGap: "+(gap>=0?"+":"-")+fmt$(Math.abs(gap))+"/mo · "+(gap>=0?"+":"-")+fmt$(Math.abs(gap*12))+"/yr\nVerdict: "+v+"\nBreakeven occupancy: "+$("kBEocc").textContent+" · Breakeven nightly rate: "+$("kBEnight").textContent+"\nTurnovers: "+s.stays.toFixed(1)+"/mo";
+ renderSaved();}
+function saveScenario(){if(!last)calc();const all=JSON.parse(localStorage.getItem("nightly-verdict")||"[]");all.push(last);localStorage.setItem("nightly-verdict",JSON.stringify(all));renderSaved()}
+function renderSaved(){const all=JSON.parse(localStorage.getItem("nightly-verdict")||"[]");$("saved").innerHTML=all.length?all.map((s,i)=>"<p><b style='color:var(--accent)'>"+s.name+"</b> — "+fmt$(s.nightly)+"/night at "+Math.round(s.occ*100)+"% · STR "+fmt$(s.strNet)+" vs LTR "+fmt$(s.ltrNet)+" · gap "+(s.gap>=0?"+":"-")+fmt$(Math.abs(s.gap))+"/mo <button class='ghost' onclick='delScenario("+i+")'>Delete</button></p>").join(""):"<p class='small'>No saved scenarios yet.</p>"}
+function delScenario(i){const all=JSON.parse(localStorage.getItem("nightly-verdict")||"[]");all.splice(i,1);localStorage.setItem("nightly-verdict",JSON.stringify(all));renderSaved()}
+function copySummary(){calc();$("summary").select();if(navigator.clipboard)navigator.clipboard.writeText($("summary").value)}
+calc();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");
+</script></body></html>
